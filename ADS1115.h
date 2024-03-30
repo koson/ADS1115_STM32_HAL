@@ -1,7 +1,7 @@
 #include <Channel_ADS1115.h>
 #include <Registers_ADS1115.h>
 #include <VoltageConvert_ADS1115.h>
-#include "stm32f4xx_hal.h"
+#include "stm32l4xx_hal.h"
 
 #ifndef SRC_ADS1115_H_
 #define SRC_ADS1115_H_
