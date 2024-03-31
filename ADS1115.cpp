@@ -14,6 +14,7 @@ void ADS1115::setRegBits(OS os, MUX mux, PGA pga, MODE mode, DR dr, COMP_MODE co
 int16_t ADS1115::write_ADS1115(OS os, MUX mux, PGA pga, MODE mode, DR dr, COMP_MODE comp_mode, COMP_POL comp_pol, COMP_LAT comp_lat, COMP_QUE comp_que){
 	regBits[0] = CONF_REG;
 	setRegBits(os, mux, pga, mode, dr, comp_mode, comp_pol, comp_lat, comp_que);
+	HAL_Delay(1);
 	HAL_I2C_Master_Transmit(hi2c, addr<<1, regBits, 3, 10);
 
 	regBits[0] = CONV_REG;
@@ -34,7 +35,7 @@ int16_t ADS1115::read_ADS1115(Channel channel, PGA pga, DR dr){
 			W_SC, 			// Start a single conversion
 			(MUX)channel,
 			pga,
-			CCM, 			// Single-shot mode or power-down state (default)
+			PDSSM, 			// Single-shot mode or power-down state (default)
 			dr,
 			TCWH, 			// Traditional comparator (default)
 			AL, 			// Active low (default)
@@ -49,22 +50,22 @@ float ADS1115::readVoltage_ADS1115(Channel channel, PGA pga, DR dr)
 
 	switch(pga){
 		case(FS6144):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, CCM, dr, TCWH, AL, NLC, DC) * CONVERT6144;
+				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT6144;
 				break;
 		case(FS4096):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, CCM, dr, TCWH, AL, NLC, DC) * CONVERT4096;
+				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT4096;
 				break;
 		case(FS2048):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, CCM, dr, TCWH, AL, NLC, DC) * CONVERT2048;
+				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT2048;
 				break;
 		case(FS1024):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, CCM, dr, TCWH, AL, NLC, DC) * CONVERT1024;
+				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT1024;
 				break;
 		case(FS0512):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, CCM, dr, TCWH, AL, NLC, DC) * CONVERT0512;
+				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT0512;
 				break;
 		case(FS0256_0):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, CCM, dr, TCWH, AL, NLC, DC) * CONVERT0256;
+				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT0256;
 				break;
 	}
 
