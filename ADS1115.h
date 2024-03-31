@@ -11,7 +11,10 @@ public:
 	ADS1115(I2C_HandleTypeDef* hi2c, ADS1115_ADDRESS addr);
 	int16_t write_ADS1115(OS os, MUX mux, PGA pga, MODE mode, DR dr, COMP_MODE comp_mode, COMP_POL comp_pol, COMP_LAT comp_lat, COMP_QUE comp_que);
 
-	int16_t read_ADS1115(Channel channel, PGA pga, DR dr = SPS128);
+	int16_t read_ADS1115(Channel channel, PGA pga = FS4096, DR dr = SPS128);
+
+	void setChannel(Channel channel, PGA pga = FS4096, DR dr = SPS128);
+
 
 	float readVoltage_ADS1115(Channel channel, PGA pga, DR dr = SPS128);
 

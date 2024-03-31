@@ -6,9 +6,20 @@ ADS1115::~ADS1115() {
 	delete[] regBits;
 }
 
-void ADS1115::setRegBits(OS os, MUX mux, PGA pga, MODE mode, DR dr, COMP_MODE comp_mode, COMP_POL comp_pol, COMP_LAT comp_lat, COMP_QUE comp_que) {
+void ADS1115::setRegBits(OS os, MUX mux, PGA pga, MODE mode, DR dr, COMP_MODE comp_mode, COMP_POL comp_pol, COMP_LAT comp_lat, COMP_QUE comp_que)
+{
 	regBits[1] = (os << 7) | (mux << 4) | (pga << 1) | mode;
 	regBits[2] = (dr << 5) | (comp_mode << 4) | (comp_pol << 3) | (comp_lat << 2) | comp_que;
+}
+
+void ADS1115::setChannel(Channel channel, PGA pga, DR dr)
+{
+	regBits[0] = CONF_REG;
+	setRegBits(W_SC, (MUX)(channel+4), pga, PDSSM, dr, TCWH, AL, NLC, DC);
+	HAL_I2C_Master_Transmit(hi2c, addr<<1, regBits, 3, 10);
+	regBits[0] = CONV_REG;
+	HAL_I2C_Master_Transmit(hi2c, addr<<1, regBits, 1, 10);
+
 }
 
 int16_t ADS1115::write_ADS1115(OS os, MUX mux, PGA pga, MODE mode, DR dr, COMP_MODE comp_mode, COMP_POL comp_pol, COMP_LAT comp_lat, COMP_QUE comp_que){
@@ -18,14 +29,13 @@ int16_t ADS1115::write_ADS1115(OS os, MUX mux, PGA pga, MODE mode, DR dr, COMP_M
 
 	regBits[0] = CONV_REG;
 	HAL_I2C_Master_Transmit(hi2c, addr<<1, regBits, 1, 10);
-
+	HAL_Delay(2);
 	HAL_I2C_Master_Receive(hi2c, addr<<1, regBits, 2, 10);
 
 	reading = (regBits[0] << 8 | regBits[1]);
 	if(reading < 0 ) {
 		reading = 0;
 	}
-
 	return reading;
 }
 
