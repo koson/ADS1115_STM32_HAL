@@ -2,6 +2,9 @@
 
 #ifndef SRC_CHANNEL_H_
 #define SRC_CHANNEL_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 enum Channel {
 	Channel_0 = AIN0_AIN_GND,
@@ -14,4 +17,7 @@ enum Channel {
 	Differential_2_3 = AIN2_AIN3
 };
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* SRC_CHANNEL_H_ */
