@@ -14,7 +14,6 @@ void ADS1115::setRegBits(OS os, MUX mux, PGA pga, MODE mode, DR dr, COMP_MODE co
 int16_t ADS1115::write_ADS1115(OS os, MUX mux, PGA pga, MODE mode, DR dr, COMP_MODE comp_mode, COMP_POL comp_pol, COMP_LAT comp_lat, COMP_QUE comp_que){
 	regBits[0] = CONF_REG;
 	setRegBits(os, mux, pga, mode, dr, comp_mode, comp_pol, comp_lat, comp_que);
-	HAL_Delay(1);
 	HAL_I2C_Master_Transmit(hi2c, addr<<1, regBits, 3, 10);
 
 	regBits[0] = CONV_REG;
