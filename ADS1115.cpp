@@ -49,22 +49,22 @@ float ADS1115::readVoltage_ADS1115(Channel channel, PGA pga, DR dr)
 
 	switch(pga){
 		case(FS6144):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT6144;
+				voltage = write_ADS1115(W_SC, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT6144;
 				break;
 		case(FS4096):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT4096;
+				voltage = write_ADS1115(W_SC, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT4096;
 				break;
 		case(FS2048):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT2048;
+				voltage = write_ADS1115(W_SC, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT2048;
 				break;
 		case(FS1024):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT1024;
+				voltage = write_ADS1115(W_SC, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT1024;
 				break;
 		case(FS0512):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT0512;
+				voltage = write_ADS1115(W_SC, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT0512;
 				break;
 		case(FS0256_0):
-				voltage = write_ADS1115(W_NE, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT0256;
+				voltage = write_ADS1115(W_SC, (MUX)channel, pga, PDSSM, dr, TCWH, AL, NLC, DC) * CONVERT0256;
 				break;
 	}
 
